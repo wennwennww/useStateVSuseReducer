@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+
+import React from 'react';
 
 function App() {
+  const [todos, setTodos] = React.useState([]);
+  const [input, setInput] = React.useState(null);
+
+  // const reducer = (state = [], action) => {
+  //   switch (action.type) {
+  //     case 'ADD': return [...state, action.text];
+
+  //     default: return state;
+  //   }
+  // };
+
+  // const [todos, dispatch] = React.useReducer(reducer);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style={{ padding: 15 }}>
+      <h1>useState vs useReducer</h1>
+      <div>
+        <input type="text" value={input} onChange={(e) => { setInput(e.target.value) }} />
+        <button onClick={() => {
+          setTodos((oldVal) => {
+            return [...oldVal, input]
+          })
+          setInput("");
+        }}>Add</button>
+        {/* <button onClick={() => {
+            dispatch({ type: 'ADD', text: input })
+            setInput("")
+          }}>Add</button> */}
+      </div>
+
+      <div>
+        {todos.map((item) => {
+          return <li>{item}</li>
+        })}
+      </div>
     </div>
   );
 }
